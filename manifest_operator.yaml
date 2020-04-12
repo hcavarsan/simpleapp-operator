@@ -1,0 +1,126 @@
+---
+{
+  "apiVersion": "apiextensions.k8s.io/v1beta1",
+  "kind": "CustomResourceDefinition",
+  "metadata": {
+    "labels": {
+      "k8s-app": "henrique-operator"
+    },
+    "name": "simpleapps.henrique-operator.example.com"
+  },
+  "spec": {
+    "additionalPrinterColumns": [],
+    "group": "henrique-operator.example.com",
+    "names": {
+      "kind": "SimpleApp",
+      "plural": "simpleapps",
+      "shortNames": null,
+      "singular": "simpleapp"
+    },
+    "scope": "Namespaced",
+    "version": "v1"
+  }
+}
+---
+{
+  "apiVersion": "rbac.authorization.k8s.io/v1",
+  "kind": "ClusterRole",
+  "metadata": {
+    "labels": {
+      "k8s-app": "henrique-operator"
+    },
+    "name": "henrique-operator"
+  },
+  "rules": [
+    {
+      "apiGroups": [
+        "apiextensions.k8s.io"
+      ],
+      "resources": [
+        "customresourcedefinitions"
+      ],
+      "verbs": [
+        "*"
+      ]
+    },
+    {
+      "apiGroups": [
+        "henrique-operator.example.com"
+      ],
+      "resources": [
+        "simpleapps"
+      ],
+      "verbs": [
+        "*"
+      ]
+    },
+    {
+      "apiGroups": [
+        "apps"
+      ],
+      "resources": [
+        "deployments"
+      ],
+      "verbs": [
+        "*"
+      ]
+    },
+    {
+      "apiGroups": [
+        ""
+      ],
+      "resources": [
+        "services"
+      ],
+      "verbs": [
+        "*"
+      ]
+    },
+    {
+      "apiGroups": [
+        ""
+      ],
+      "resources": [
+        "ingress"
+      ],
+      "verbs": [
+        "*"
+      ]
+    }
+  ]
+}
+---
+{
+  "apiVersion": "v1",
+  "kind": "ServiceAccount",
+  "metadata": {
+    "labels": {
+      "k8s-app": "henrique-operator"
+    },
+    "name": "henrique-operator",
+    "namespace": "default"
+  }
+}
+---
+{
+  "apiVersion": "rbac.authorization.k8s.io/v1",
+  "kind": "ClusterRoleBinding",
+  "metadata": {
+    "labels": {
+      "k8s-app": "henrique-operator"
+    },
+    "name": "henrique-operator"
+  },
+  "roleRef": {
+    "apiGroup": "rbac.authorization.k8s.io",
+    "kind": "ClusterRole",
+    "name": "henrique-operator"
+  },
+  "subjects": [
+    {
+      "kind": "ServiceAccount",
+      "name": "henrique-operator",
+      "namespace": "default"
+    }
+  ]
+}
