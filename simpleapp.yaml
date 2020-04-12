@@ -1,0 +1,9 @@
+apiVersion: henrique-operator.example.com/v1
+kind: SimpleApp
+metadata:
+  name: Teste1
+spec:
+  simpleapp: Teste1
+  image: nginx
+  host: teste.exemplo.com
+  port: 80
