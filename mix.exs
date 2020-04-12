@@ -1,4 +1,4 @@
-defmodule HelloOperator.MixProject do
+defmodule HenriqueOperator.MixProject do
   use Mix.Project
 
   def project do

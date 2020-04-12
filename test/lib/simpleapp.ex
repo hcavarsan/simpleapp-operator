@@ -1,3 +1,0 @@
-defmodule HenriqueOperator do
-
-end
